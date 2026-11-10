@@ -1,0 +1,19 @@
+# never commit these
+config.json
+secrets/*
+!secrets/README.md
+*.token.json
+client_secret*.json
+
+# receiver runtime
+receiver/logs/
+receiver/pokes/
+
+# project runtime
+output/
+agents/.locks/*
+!agents/.locks/.gitkeep
+agents/args/*
+!agents/args/list-agents.json
+__pycache__/
+*.pyc

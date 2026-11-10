@@ -1,0 +1,98 @@
+{
+  "_about": "The board shape for the Recipe Shorts SAMPLE only. Your project's types, columns and fields come from your own work and are agreed before anything is built (docs/board.md). Each item type is its own board (its own columns), so one workspace holds the Recipe board and the Post board side by side. Each entry under 'types' is the --args object for one `type.add` command; 'after' lists follow-up commands.",
+  "workspace": {
+    "name": "Recipe Shorts",
+    "description": "Pipeline for a recipe channel: Shorts (the Recipe board) and kitchen-tip community posts (the Post board), built, reviewed and scheduled by agents."
+  },
+  "types": [
+    {
+      "label": "Recipe",
+      "labelPlural": "Recipes",
+      "statuses": [
+        { "label": "Idea" },
+        { "label": "Queued" },
+        { "label": "Built (In Review)" },
+        { "label": "Needs Fixes" },
+        { "label": "Approved" },
+        { "label": "Waiting on You" },
+        { "label": "Scheduled" },
+        { "label": "Published", "done": true },
+        { "label": "Rejected", "done": true }
+      ],
+      "fields": [
+        { "label": "Slug", "kind": "text" },
+        { "label": "Recipe file", "kind": "text" },
+        { "label": "Folder", "kind": "text" },
+        { "label": "Score", "kind": "number" },
+        { "label": "Publish date", "kind": "date" },
+        { "label": "YouTube URL", "kind": "url" }
+      ]
+    },
+    {
+      "label": "Post",
+      "labelPlural": "Posts",
+      "statuses": [
+        { "label": "Idea" },
+        { "label": "Queued" },
+        { "label": "Built (In Review)" },
+        { "label": "Needs Fixes" },
+        { "label": "Approved" },
+        { "label": "Waiting on You" },
+        { "label": "Scheduled" },
+        { "label": "Published", "done": true },
+        { "label": "Rejected", "done": true }
+      ],
+      "fields": [
+        { "label": "Slug", "kind": "text" },
+        { "label": "Post file", "kind": "text" },
+        { "label": "Image", "kind": "text" },
+        { "label": "Score", "kind": "number" },
+        { "label": "Publish date", "kind": "date" },
+        { "label": "Post URL", "kind": "url" }
+      ]
+    },
+    {
+      "label": "Agent",
+      "labelPlural": "Agents",
+      "baseCategory": "workflow",
+      "baseNodeType": "concept",
+      "hasDueDate": true,
+      "statuses": [
+        { "label": "Active" },
+        { "label": "Paused" },
+        { "label": "Retired", "done": true }
+      ],
+      "fields": [
+        { "label": "Playbook", "kind": "longText" },
+        { "label": "Trigger", "kind": "text" },
+        { "label": "Schedule", "kind": "text" },
+        { "label": "Last run", "kind": "text" }
+      ]
+    },
+    {
+      "label": "Task",
+      "labelPlural": "Tasks",
+      "baseCategory": "operations",
+      "baseNodeType": "goal",
+      "statuses": [
+        { "label": "To do" },
+        { "label": "Doing" },
+        { "label": "Done", "done": true }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "command": "type.update",
+      "args": { "type": "agent", "hasDueDate": true, "dueFiresIn": ["active"] },
+      "why": "A paused or retired agent's timer must not fire. This command previews first and returns a confirm code."
+    }
+  ],
+  "status_keys": {
+    "_about": "Keys are made from the labels once and never change. Check them with shape.show; the receiver's `roles` map uses <type key>:<status key>.",
+    "recipe": ["idea", "queued", "built_in_review", "needs_fixes", "approved", "waiting_on_you", "scheduled", "published", "rejected"],
+    "post": ["idea", "queued", "built_in_review", "needs_fixes", "approved", "waiting_on_you", "scheduled", "published", "rejected"],
+    "agent": ["active", "paused", "retired"],
+    "task": ["to_do", "doing", "done"]
+  }
+}

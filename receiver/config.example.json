@@ -1,0 +1,178 @@
+{
+  "port": 8787,
+  "public_host": "hooks.example.com",
+  "tunnel_name": "board-hooks",
+  "model": "sonnet",
+  "shell": false,
+  "run_on_start": false,
+  "sweep_sessions": true,
+  "sweep_hours": 6,
+  "keep_log_days": 14,
+  "maintenance_day": "Sun",
+  "discord_webhook": "",
+  "routes": {
+    "/empirical/recipe-shorts": {
+      "name": "recipe-shorts",
+      "secret": "PASTE_SECRET_HERE",
+      "project_dir": "C:\\projects\\recipe-shorts",
+      "prompt": "You are the {role} agent for this project. Your instructions are on the Empirical board Recipe Shorts (workspace id ws_team_REPLACE_ME), which you read with the empirical command line tool. Run exactly: empirical command run item.list --workspace-id ws_team_REPLACE_ME --args-file agents/args/list-agents.json Read the playbook field of the card named rules first, then the playbook of the card named {role}, and do exactly that job and nothing else. If your card is Paused or Retired, stop. Cards that triggered this run: {ids}.",
+      "debounce_seconds": 60,
+      "role_debounce_seconds": {
+        "builder": 120
+      },
+      "roles": {
+        "recipe:queued": "builder",
+        "recipe:needs_fixes": "builder",
+        "recipe:built_in_review": "reviewer",
+        "recipe:approved": "publisher",
+        "post:queued": "post-builder",
+        "post:needs_fixes": "post-builder",
+        "post:built_in_review": "reviewer",
+        "post:approved": "poster"
+      },
+      "daily": {
+        "08:00": [
+          "custodian"
+        ],
+        "11:15": [
+          "publisher"
+        ],
+        "Mon 11:15": [
+          "poster"
+        ],
+        "Fri 11:15": [
+          "poster"
+        ],
+        "Sat 09:00": [
+          "ideas"
+        ]
+      },
+      "due_roles": {
+        "REPLACE_WITH_custodian_AGENT_CARD_ID": "custodian",
+        "REPLACE_WITH_publisher_AGENT_CARD_ID": "publisher",
+        "REPLACE_WITH_poster_AGENT_CARD_ID": "poster",
+        "REPLACE_WITH_ideas_AGENT_CARD_ID": "ideas"
+      },
+      "timer_fallback_minutes": 40,
+      "lock_dir": "agents/.locks",
+      "role_models": {
+        "ideas": "opus"
+      },
+      "board_url": "",
+      "alerts": {
+        "recipe:idea": "new recipe ideas are waiting for you (Idea)",
+        "recipe:waiting_on_you": "a recipe is **Waiting on You**, see its note",
+        "recipe:needs_fixes": "the reviewer sent a Short back (Needs Fixes)",
+        "recipe:scheduled": "a Short is scheduled",
+        "post:idea": "new post ideas are waiting for you (Idea)",
+        "post:waiting_on_you": "a post is **Waiting on You**, see its note",
+        "task:to_do": "new task for you (custodian report)"
+      },
+      "command": [
+        "claude",
+        "{prompt}",
+        "--bg",
+        "--permission-mode",
+        "dontAsk",
+        "--allowedTools",
+        "Read",
+        "Edit",
+        "Write",
+        "Glob",
+        "Grep",
+        "Bash(python tools/:*)",
+        "PowerShell(python tools/:*)",
+        "Bash(ffmpeg:*)",
+        "PowerShell(ffmpeg:*)",
+        "Bash(ffprobe:*)",
+        "PowerShell(ffprobe:*)",
+        "Bash(claude agents:*)",
+        "PowerShell(claude agents:*)",
+        "Bash(ls:*)",
+        "PowerShell(ls:*)",
+        "Bash(dir:*)",
+        "PowerShell(dir:*)",
+        "Bash(mkdir:*)",
+        "PowerShell(mkdir:*)",
+        "Bash(cp:*)",
+        "PowerShell(cp:*)",
+        "Bash(mv:*)",
+        "PowerShell(mv:*)",
+        "PowerShell(Get-ChildItem:*)",
+        "PowerShell(Get-Content:*)",
+        "PowerShell(Get-Date:*)",
+        "PowerShell(Copy-Item:*)",
+        "PowerShell(Move-Item:*)",
+        "PowerShell(New-Item:*)",
+        "Bash(empirical command run item.list:*)",
+        "PowerShell(empirical command run item.list:*)",
+        "Bash(empirical command run item.create:*)",
+        "PowerShell(empirical command run item.create:*)",
+        "Bash(empirical command run item.update:*)",
+        "PowerShell(empirical command run item.update:*)",
+        "Bash(empirical command run item.move:*)",
+        "PowerShell(empirical command run item.move:*)",
+        "Bash(empirical command run shape.show:*)",
+        "PowerShell(empirical command run shape.show:*)",
+        "Bash(empirical memory get:*)",
+        "PowerShell(empirical memory get:*)",
+        "Bash(empirical memory note:*)",
+        "PowerShell(empirical memory note:*)",
+        "Bash(empirical memory attachment add:*)",
+        "PowerShell(empirical memory attachment add:*)",
+        "Bash(empirical memory attachment list:*)",
+        "PowerShell(empirical memory attachment list:*)",
+        "Bash(empirical webhook list:*)",
+        "PowerShell(empirical webhook list:*)",
+        "Bash(empirical webhook deliveries:*)",
+        "PowerShell(empirical webhook deliveries:*)"
+      ],
+      "role_commands": {
+        "poster": [
+          "cmd",
+          "/c",
+          "start",
+          "Recipe Shorts {role}",
+          "/D",
+          "C:\\projects\\recipe-shorts",
+          "claude",
+          "{prompt}",
+          "--chrome",
+          "--permission-mode",
+          "dontAsk",
+          "--allowedTools",
+          "mcp__claude-in-chrome",
+          "Read",
+          "Write",
+          "Glob",
+          "Grep",
+          "Bash(empirical command run item.list:*)",
+          "PowerShell(empirical command run item.list:*)",
+          "Bash(empirical command run item.create:*)",
+          "PowerShell(empirical command run item.create:*)",
+          "Bash(empirical command run item.update:*)",
+          "PowerShell(empirical command run item.update:*)",
+          "Bash(empirical command run item.move:*)",
+          "PowerShell(empirical command run item.move:*)",
+          "Bash(empirical command run shape.show:*)",
+          "PowerShell(empirical command run shape.show:*)",
+          "Bash(empirical memory get:*)",
+          "PowerShell(empirical memory get:*)",
+          "Bash(empirical memory note:*)",
+          "PowerShell(empirical memory note:*)",
+          "Bash(empirical memory attachment add:*)",
+          "PowerShell(empirical memory attachment add:*)",
+          "Bash(empirical memory attachment list:*)",
+          "PowerShell(empirical memory attachment list:*)",
+          "Bash(empirical webhook list:*)",
+          "PowerShell(empirical webhook list:*)",
+          "Bash(empirical webhook deliveries:*)",
+          "PowerShell(empirical webhook deliveries:*)"
+        ]
+      },
+      "role_shell": {
+        "poster": false
+      }
+    }
+  }
+}

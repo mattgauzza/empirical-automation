@@ -1,0 +1,14 @@
+{
+  "slug": "garlic-butter-toast",
+  "title": "5-Minute Garlic Butter Toast",
+  "hook": "The best toast you can make in 5 minutes",
+  "ingredients": ["2 slices of bread", "2 tbsp soft butter", "1 clove garlic, grated", "Pinch of salt", "Parsley"],
+  "steps": [
+    {"text": "Mix the butter, garlic and salt", "seconds": 4},
+    {"text": "Spread it edge to edge on both slices", "seconds": 4},
+    {"text": "Pan, medium heat, butter side down, 2 minutes", "seconds": 5},
+    {"text": "Flip for 30 seconds, then add parsley", "seconds": 4}
+  ],
+  "outro": "Save this for tomorrow's breakfast",
+  "hashtags": ["recipe", "easyrecipes", "toast", "garlicbutter"]
+}

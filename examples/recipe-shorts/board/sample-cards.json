@@ -1,0 +1,92 @@
+{
+  "_about": "Made-up starter cards for the Recipe Shorts sample. Each entry is the --args object for one `item.create` command. For Agent cards, `playbook_file` is not an argument: read that file and send its text as fields.playbook. Timers (`dueRepeat` with dueEmail false) go on the Agent cards that run on a clock.",
+  "agents": [
+    {
+      "type": "agent", "status": "active",
+      "summary": "rules: shared rules every agent reads first",
+      "fields": { "trigger": "read by every agent at the start of every run" },
+      "playbook_file": "agents/rules.md"
+    },
+    {
+      "type": "agent", "status": "active",
+      "summary": "ideas: adds a few recipe and post ideas every week",
+      "fields": { "trigger": "timer", "schedule": "Sat 09:00" },
+      "playbook_file": "agents/ideas.md",
+      "dueRepeat": "Sat 09:00", "dueTimeZone": "America/New_York", "dueEmail": false
+    },
+    {
+      "type": "agent", "status": "active",
+      "summary": "builder: turns a queued recipe into a finished Short",
+      "fields": { "trigger": "Recipe -> Queued, Needs Fixes" },
+      "playbook_file": "agents/builder.md"
+    },
+    {
+      "type": "agent", "status": "active",
+      "summary": "reviewer: checks each finished Short and post before it goes out",
+      "fields": { "trigger": "Recipe, Post -> Built (In Review)" },
+      "playbook_file": "agents/reviewer.md"
+    },
+    {
+      "type": "agent", "status": "active",
+      "summary": "publisher: schedules approved Shorts on the channel (Tue, Thu, Sat)",
+      "fields": { "trigger": "Recipe -> Approved", "schedule": "daily 11:15 (go-live check)" },
+      "playbook_file": "agents/publisher.md",
+      "dueRepeat": "daily 11:15", "dueTimeZone": "America/New_York", "dueEmail": false
+    },
+    {
+      "type": "agent", "status": "active",
+      "summary": "post-builder: makes the image card and caption for a queued post",
+      "fields": { "trigger": "Post -> Queued, Needs Fixes" },
+      "playbook_file": "agents/post-builder.md"
+    },
+    {
+      "type": "agent", "status": "active",
+      "summary": "poster: schedules approved community posts (Mon + Fri), in Chrome",
+      "fields": { "trigger": "Post -> Approved", "schedule": "Mon,Fri 11:15 (go-live check)" },
+      "playbook_file": "agents/poster.md",
+      "dueRepeat": "Mon,Fri 11:15", "dueTimeZone": "America/New_York", "dueEmail": false
+    },
+    {
+      "type": "agent", "status": "active",
+      "summary": "custodian: daily health check, reports what's stuck or wrong",
+      "fields": { "trigger": "timer", "schedule": "daily 08:00" },
+      "playbook_file": "agents/custodian.md",
+      "dueRepeat": "daily 08:00", "dueTimeZone": "America/New_York", "dueEmail": false
+    }
+  ],
+  "recipes": [
+    {
+      "type": "recipe", "status": "idea",
+      "summary": "5-Minute Garlic Butter Toast",
+      "fields": { "slug": "garlic-butter-toast", "recipe_file": "recipes/garlic-butter-toast.json", "score": 7 }
+    },
+    {
+      "type": "recipe", "status": "idea",
+      "summary": "3-Ingredient Peanut Noodles",
+      "fields": { "slug": "peanut-noodles", "score": 8 }
+    },
+    {
+      "type": "recipe", "status": "rejected",
+      "summary": "12-Hour Sourdough Starter",
+      "fields": { "slug": "sourdough-starter", "score": 4 }
+    }
+  ],
+  "posts": [
+    {
+      "type": "post", "status": "idea",
+      "summary": "Salt your pasta water until it tastes like the sea",
+      "fields": { "slug": "salt-your-pasta-water", "post_file": "posts/salt-your-pasta-water.json", "score": 7 }
+    },
+    {
+      "type": "post", "status": "rejected",
+      "summary": "Always rinse your pasta after cooking",
+      "fields": { "slug": "rinse-your-pasta", "score": 3 }
+    }
+  ],
+  "tasks": [
+    {
+      "type": "task", "status": "to_do",
+      "summary": "Sign in to YouTube once: python tools/youtube.py auth"
+    }
+  ]
+}
