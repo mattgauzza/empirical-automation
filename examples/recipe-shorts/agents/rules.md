@@ -45,19 +45,30 @@ prompt: pass `--workspace-id <ws>` on EVERY one. Arguments go in a JSON file you
 | Recipe Queued `queued` | **builder** | Built (In Review) |
 | Post Queued `queued` | **post-builder** | Built (In Review) |
 | Recipe / Post Built (In Review) `built_in_review` | **reviewer** | Approved, or Needs Fixes |
-| Recipe / Post Needs Fixes `needs_fixes` | builder / post-builder | Built (In Review) |
+| Recipe / Post Needs Fixes `needs_fixes` | builder / post-builder (sent there by the reviewer, or by the owner with a note) | Built (In Review) |
 | Recipe Approved `approved` | **publisher** (YouTube API) | Scheduled, or Waiting on You |
 | Post Approved `approved` | **poster** (Chrome window) | Scheduled, or Waiting on You |
 | Waiting on You `waiting_on_you` | the owner (the note says what to do) | where the note says |
 | Scheduled `scheduled` | publisher / poster (go-live check) | Published |
 | Published `published` | done | - |
-| Rejected `rejected` | nobody; the ideas agent studies these against the accepted ones | - |
+| Rejected `rejected` | nobody works on these; the owner leaves a one-line note saying why; the ideas agent learns from them | - |
 
 Timers: daily 08:00 **custodian**, daily 11:15 **publisher** (go-live check), Monday and Friday 11:15
 **poster** (go-live check), Saturday 09:00 **ideas**.
 Release rhythm: a Short on Tuesday, Thursday and Saturday; a post on Monday and Friday; all at 11:00 AM.
 
+## Sent back and rejected
+- **The owner can send anything back.** From any column, the owner may drag a card to Needs Fixes with
+  a note saying what to change. That note is the fix list, and it outranks the reviewer's.
+- **Fixes are exact.** Fix the points listed and nothing else, then say which points you fixed.
+- **No endless loops.** The same problem sent back a third time goes to Waiting on You with the history.
+- **Rejected is final for that card.** Never move a card out of Rejected and never rebuild it. The
+  reason (the owner's note) goes into `IDEAS-TASTE.md` at the ideas agent's next run, so the next
+  ideas are better. A rejected card with no reason still counts: compare it with what was queued.
+
 ## Files
+- `IDEAS-TASTE.md`: what the owner accepts and rejects, and why. The ideas agent keeps it; read it
+  before proposing or judging anything.
 - `recipes/<slug>.json`: one recipe (format in `tools/make_short.py`). The Recipe card's `recipe_file`.
 - `output/<slug>/`: `<slug>.mp4`, `<slug>-sheet.jpg`, `youtube.txt`, `work/`. The Recipe card's `folder`.
 - `posts/<slug>.json`: one post (format in `tools/make_post.py`). The Post card's `post_file`.

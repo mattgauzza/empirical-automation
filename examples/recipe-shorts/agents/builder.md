@@ -16,8 +16,11 @@
    6 lines: shorten that text in the recipe file and run step 2 again.
 4. Read `<out>/youtube.txt`: line 1 is the title and ends ` #shorts`; the description names the ingredients.
 
-Needs Fixes: read the reviewer's numbered notes, fix exactly those in the recipe file, then run
-steps 1 to 4 again.
+Needs Fixes: read the card's notes (`empirical memory get`). The fix list is the newest note since
+your last `builder: built` note that is from the reviewer (numbered) or from the owner (any note not
+starting with a role name). The owner's note wins if both are there. Fix exactly those in the recipe
+file, then run steps 1 to 4 again, and say in your Finish note which points you fixed. No such note,
+or you can't tell what is wanted: Waiting on You, asking what to change.
 
 If a step crashes: note the error. Fix it in `tools/` only if the fix is small and clearly right, and
 say what you changed in a note. Otherwise Waiting on You with the error.

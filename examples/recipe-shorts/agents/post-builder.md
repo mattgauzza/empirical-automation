@@ -15,7 +15,11 @@
    characters. Too long: tighten the wording in the post file (keep the meaning) and run step 2 again.
 4. Read `<out>/caption.txt`: one or two sentences, ends with a question or a next step, at most 3 hashtags.
 
-Needs Fixes: read the reviewer's numbered notes, fix exactly those, then run steps 1 to 4 again.
+Needs Fixes: read the card's notes (`empirical memory get`). The fix list is the newest note since
+your last `post-builder: built` note that is from the reviewer (numbered) or from the owner (any note
+not starting with a role name). The owner's note wins if both are there. Fix exactly those, then run
+steps 1 to 4 again, and say in your Finish note which points you fixed. No such note, or you can't
+tell what is wanted: Waiting on You, asking what to change.
 
 ## Finish
 Set the card's `image` field to `<out>/<slug>.png`. Attach the image and `caption.txt` to the card

@@ -21,6 +21,10 @@ Idea ──(you drag)──▶ Queued ──post-builder──▶ Built (In Revi
 custodian (daily 08:00) watches all of it and reports as a Task
 ```
 
+Two rejection loops: the reviewer (or you, with a note) sends built work to Needs Fixes and the
+builder fixes exactly those points; and anything you drag to Rejected, with one line on why, feeds
+`IDEAS-TASTE.md`, which the ideas agent must satisfy next time.
+
 Every card that lands in front of you carries what you need to decide: the frame sheet or image, the
 text, the link, the why, and the exact next step (`agents/rules.md`, "What the owner needs to decide").
 
@@ -29,6 +33,7 @@ text, the link, the why, and the exact next step (`agents/rules.md`, "What the o
 | `CLAUDE.md` | Project instructions every session loads |
 | `agents/rules.md` | Shared rules; becomes the `rules` Agent card |
 | `agents/<role>.md` | One playbook per role; each becomes an Agent card |
+| `IDEAS-TASTE.md` | What you accept and reject, and why; the ideas agent keeps it from your reject notes |
 | `agents/.locks/` | Lock files the agents and the receiver share (runtime) |
 | `board/shape.json` | The types, columns and fields, as `type.add` arguments |
 | `board/sample-cards.json` | Starter cards, as `item.create` arguments |

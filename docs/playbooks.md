@@ -102,6 +102,34 @@ Rules of thumb:
   repairs anything itself.
 - An **ideas** agent reads what was rejected against what was queued, and stops when enough ideas wait.
 
+## Rejection loops
+
+A pipeline needs two ways for "no" to travel backward, and both must end.
+
+**Sent back (the work is wrong, fix it).** A Needs Fixes column mapped to the builder role.
+
+- The reviewer sends work there with numbered findings: what is wrong, what right looks like.
+- The person can send work there too, from any column, with a note. Tell the builder how to find the
+  fix list: the newest note since its own last "built" note, the person's outranking the reviewer's.
+- The builder fixes exactly those points, says which, and returns the card to review. It reviews
+  again from the top: a fix can break something else.
+- Cap it. The same problem back a third time goes to "Waiting on You" with the history; the
+  custodian reports cards that have looped three times.
+
+**Rejected (don't make this, and learn from it).** A Rejected column nobody works on.
+
+- The person drags a card there and leaves one line on why. Works for ideas and for built work.
+- The ideas agent, at the start of every run, reads the new rejections' notes and writes them into a
+  taste file in the project (the sample's `IDEAS-TASTE.md`): a dated history of rejected and accepted
+  cards, and a short list of rules they add up to. Every new idea must pass those rules.
+- Keep the reason in a note and the lessons in a file. A card field for the reason is one more thing
+  to fill in on a phone; a note is what people already write.
+- The custodian asks for a reason on recent rejections that have none. A rejection without a reason
+  still teaches something, by comparison with what was queued.
+
+Without the second loop the ideas agent proposes the same kind of thing every week, and the person
+stops reading the Idea column.
+
 ## Give the person what they need to decide
 
 The person approves from the card, often on a phone, without the project folder. A card that says

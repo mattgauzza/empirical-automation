@@ -17,7 +17,9 @@ Answer these, with the person who will approve the cards, and write the answers 
    anything an agent can't do.
 4. **What does each agent need to hand the next?** Those are the fields (a folder, a file, a URL, a date).
 5. **What runs on a clock?** A daily health check, a weekly idea run, a go-live check.
-6. **What must the person see to decide?** For every column they own: the attachment, link and note
+6. **How does "no" travel?** A Needs Fixes column (who may send work there, who fixes it, when the
+   loop stops) and a Rejected column (where the reason goes, who learns from it). [playbooks.md](playbooks.md)
+7. **What must the person see to decide?** For every column they own: the attachment, link and note
    a card must carry when it arrives ([playbooks.md](playbooks.md)).
 
 Then write the table that becomes the heart of the `rules` card:

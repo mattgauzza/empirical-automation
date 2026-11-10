@@ -23,6 +23,10 @@ and you never delete or stop anything.
 9. **Cards waiting on the owner** (Idea, Waiting on You): each has what the rules ask for (the thing
    attached, a why, what to do). Missing: list the card.
 
+10. **Loops:** a card that has been to Needs Fixes three times or more (count the reviewer's and
+    owner's send-back notes) and isn't in Waiting on You. A Rejected card with no reason note from the
+    last 7 days: list it, asking the owner for one line on why.
+
 If a shell command is refused in this session, say which one, once, and carry on with the rest.
 
 ## Report
