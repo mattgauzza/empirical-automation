@@ -24,7 +24,8 @@ Work in this order and stop where it says stop:
 1. DESIGN, then STOP. Before creating or building anything, propose the board for THIS project:
    the item types (one board per kind of thing that is made or published differently), each type's
    columns with the one owner of each (an agent role, me, or nobody), the fields each agent hands the
-   next, the timers, the release rhythm, and for every column I own, what a card must carry so I can
+   next, the timers, the release rhythm, the two rejection loops (how work is sent back and fixed, and
+   how my rejections and their reasons reach the ideas agent), and for every column I own, what a card must carry so I can
    decide from the card alone (attachments, links, notes). Show it as the column table from
    docs/board.md plus a list of agent roles with a one-line job each. Ask me what you can't know.
    Wait for my yes. Everything after this is written against the agreed shape.
