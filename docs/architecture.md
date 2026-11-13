@@ -1,6 +1,6 @@
 # Architecture
 
-A project runs as a board. A card moving into a column starts ONE small Claude Code agent on your PC,
+A project runs as a board. A card moving into a column starts ONE small agent (Claude Code or Codex) on your PC,
 which does that column's job and moves the card on. A person approves with a card's buttons, or by dragging it.
 
 ```
@@ -29,7 +29,7 @@ does the job with  python tools/<name>.py ...,  writes notes and attachments on 
 | Board | An Empirical team workspace. Cards are the work items; Agent cards hold every agent's playbook; Task cards are the agents' messages to you | Empirical |
 | Receiver | One Python program for all your projects; a project is a route in `config.json` | `receiver/` |
 | Tunnel | A Cloudflare tunnel giving the receiver a public https address | your PC |
-| Agents | Claude Code background sessions, one role each, with a fixed allow-list and a chosen model | started by the receiver |
+| Agents | Claude Code background sessions (a fixed allow-list) or Codex runs (a sandbox, [codex.md](codex.md)), one role each, with a chosen model | started by the receiver |
 | `empirical` CLI | How agents (and you) read and write the board: plain shell commands, each one allow-listed by name | on PATH |
 | Project folder | The tools the agents run, their outputs, secrets and lock files | one per project |
 
@@ -60,7 +60,7 @@ does the job with  python tools/<name>.py ...,  writes notes and attachments on 
 1. Finds the route by URL path; rejects the request unless `X-Empirical-Signature` (`t=<unix>,v1=<hex>`,
    HMAC-SHA256 of `<t>.<raw body>`) matches the route's secret.
 2. Answers `200` at once (Empirical waits 10 seconds), appends the event to `logs/<route>-events.jsonl`.
-3. `item.due` → the role in `due_roles` for that card id. Otherwise → the role in `roles` for
+3. `item.due` → the role in `due_roles` for that card id, else the one for `"<type key>:due"` (a work card's date, run with its id). Otherwise → the role in `roles` for
    `<type key>:<status key>` (or just `<status key>`, or `default_role`). No match: ignored.
 4. Sends the Discord alert if `alerts` has one for that `<type>:<status>`.
 5. Starts (or restarts) that role's debounce timer and remembers the card id.

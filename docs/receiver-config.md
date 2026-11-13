@@ -42,7 +42,7 @@ change to `receiver.py` needs a restart.
 | `debounce_seconds` | Quiet time after the last event before the run (default 600). 60 suits a board you drag by hand |
 | `role_debounce_seconds` | Per-role override, e.g. a longer wait for a role that should batch |
 | `daily` | Local-clock timers: `"08:00": ["custodian"]`, `"Sat 09:00": ["ideas"]`. See [timers.md](timers.md) |
-| `due_roles` | Agent card id → role (or list), for Empirical `item.due` timers |
+| `due_roles` | Agent card id → role (or list), for an Agent card's own timer. Also `"<type key>:due"` → role, for a due time on a work card, started with that card's id ([timers.md](timers.md)) |
 | `timer_fallback_minutes` | Above 0: the `daily` timers are only a backup, firing this many minutes late and only if Empirical's timer didn't |
 | `lock_dir` | e.g. `agents/.locks`. A run is skipped while `<role>.lock` there is held; its card ids go to `<role>.pending` |
 | `model`, `role_models` | Model for the route, and per role: `{"ideas": "opus"}` |

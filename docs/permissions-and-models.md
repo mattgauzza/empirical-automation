@@ -1,5 +1,8 @@
 # Permissions and models
 
+This page is for agents run by Claude Code. Running them with Codex instead: [codex.md](codex.md).
+It has no per-command allow-list, which changes what keeps an agent in bounds.
+
 ## The allow-list
 
 Agents run with `--permission-mode dontAsk` and `--allowedTools <list>`. Nobody is there to approve

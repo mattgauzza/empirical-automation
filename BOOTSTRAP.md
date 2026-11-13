@@ -9,9 +9,11 @@ Build a board-driven agent pipeline for this project, using the kit at <PATH TO 
 
 The project: <WHAT IT MAKES OR DOES, WHERE IT PUBLISHES, HOW OFTEN>.
 The receiver is (or will be) at <RECEIVER FOLDER>, public address https://<HOST>/.
+The agents run on <Claude Code | Codex>.
 
 Read first, in this order: README.md, docs/architecture.md, docs/board.md, docs/playbooks.md,
-docs/receiver-config.md, docs/permissions-and-models.md, docs/timers.md, docs/publishing.md,
+docs/receiver-config.md, docs/permissions-and-models.md, docs/codex.md (if the agents run on Codex),
+docs/timers.md, docs/publishing.md, docs/spending.md (if any step pays per try),
 docs/install.md, docs/troubleshooting.md, then examples/recipe-shorts/ as a worked example.
 The sample's board shape (Recipe, Post, Agent, Task) is the SAMPLE's. Do not copy it.
 
@@ -28,7 +30,10 @@ Work in this order and stop where it says stop:
    how my rejections and their reasons reach the ideas agent), and for every column I own, what a card must carry so I can
    decide from the card alone (attachments, links, notes) and the buttons I press there (the main
    move first; Send back and Reject ask for a reason). Columns an agent owns get no buttons. Show it as the column table from
-   docs/board.md plus a list of agent roles with a one-line job each. Ask me what you can't know.
+   docs/board.md plus a list of agent roles with a one-line job each, and the model for each role.
+   Where a deliverable is made of parts, propose a director and a job type; where outputs differ in
+   kind, one reviewer per kind; where a step pays per try, its spend cap and a build-one-first gate;
+   where the work itself has dates, due times on those cards. Ask me what you can't know.
    Wait for my yes. Everything after this is written against the agreed shape.
 2. Create the workspace, types, statuses and fields. Read the real keys back with shape.show.
    Set the agreed buttons with status.actions on every column ([] on the ones an agent owns), then

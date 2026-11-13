@@ -162,6 +162,53 @@ Have build tools produce the review artifact as part of the build (the sample's 
 writes a one-frame-per-screen sheet). Have the reviewer fail a card whose attachments are missing,
 and the custodian list cards waiting on the person with nothing to look at.
 
+## Build one first
+
+When an output is expensive or slow (a paid image, a video clip, a 20-page book), the builder makes
+ONE, attaches it, and moves the card to Waiting on You with `Your move: press Done, back to <column>
+to make the rest, or Send back with what to change.` Only after the person moves it back does it make
+the rest, matching the one that was approved. It costs one extra press and saves a batch made in the
+wrong style. Write it into the builder's playbook as two visits to the same column: "no test output
+yet: make one and stop", "a test output was approved: make the rest".
+
+## Several reviewers on one column
+
+One generalist reviewer reviews everything badly once outputs differ in kind (an illustration, a
+PDF, ad copy). Give each kind its own reviewer, all on the same In Review column:
+
+```json
+"roles": { "job:in_review": ["art-reviewer", "copy-reviewer", "pdf-reviewer"] }
+```
+
+- Every reviewer starts on every move into the column. Each playbook's first step is: "Act only on
+  cards whose brief (or `kind` field) is <kind>. Any other card: leave it alone and stop." Without
+  that line three reviewers write three notes on one card.
+- A `kind` select field on the job type is clearer than reading the brief, and a builder sets it.
+- The same goes for Needs Fixes with several builders: each acts only on its own kind.
+- They can share one careful review model (`role_models`), so every kind is judged the same way.
+- Replacing a reviewer: move its Agent card to Retired and start its playbook with "Retired on
+  <date>, replaced by <roles>. If you were started as <role>, stop." A stale route entry then costs
+  one short run instead of a wrong review. Remove it from `roles` as well.
+
+## A director for big deliverables
+
+Some outputs are made of parts made by different builders: a book needs page art, copy and a PDF
+layout; a launch needs a page, an image and an email. Don't give that to one builder. Add a **job**
+type and a **director** role:
+
+- The deliverable card (a Book, a Lead Magnet) gets a planning column owned by the director. The
+  director breaks it into job cards, one per part, each with a `kind`, a brief, and link fields to the
+  deliverable and to whatever it builds on (`link` fields, [board.md](board.md)).
+- Job columns: Planned (waiting for what it depends on), one Ready column per kind (each mapped to
+  that kind's builder), In Review (the reviewers above), Needs Fixes, Complete.
+- The director starts the jobs that depend on nothing, and is started again whenever a job reaches
+  Complete (`"job:complete": "director"`). Each time, it releases the Planned jobs whose inputs are now
+  Complete. When every job is Complete it assembles, or moves the deliverable on for its final review.
+- The director never makes a part itself. It plans, routes and keeps the briefs current; a builder
+  only ever sees its one job.
+- Job Complete means agent review passed, not the person's approval. The person approves the
+  deliverable as a whole, in its own review column.
+
 ## Pausing and changing agents
 
 - Pause: drag the Agent card to Paused. It stops at the top of its next run, and its timer stops firing.

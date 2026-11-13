@@ -200,7 +200,7 @@ class Route:
         self.lock_dir = r.get("lock_dir")                      # e.g. "agents/.locks": skip a run while one holds the lock
         self.model = r.get("model", CFG.get("model"))         # e.g. "sonnet": the model every agent here runs on
         self.role_models = r.get("role_models", {})            # per-role override, e.g. {"builder": "opus"}
-        self.due_roles = r.get("due_roles", {})               # Agent card id -> role, for Empirical item.due timers
+        self.due_roles = r.get("due_roles", {})               # Agent card id, or "<type key>:due" for work cards -> role
         self.timer_fallback = int(r.get("timer_fallback_minutes", 0))  # >0: "daily" timers are only a backup
         self.role_commands = r.get("role_commands", {})   # e.g. a visible window for a role that drives Chrome
         self.role_shell = r.get("role_shell", {})
@@ -288,12 +288,21 @@ class Handler(BaseHTTPRequestHandler):
             threading.Thread(target=notify, daemon=True, args=(
                 f"**{route.name}**: {alert} (card `{item.get('id', '?')}`). {route.board_url}",)).start()
         if kind == "item.due":
-            due_role = route.due_roles.get(str(item.get("id", "")))
+            card_id = str(item.get("id", ""))
+            due_role = route.due_roles.get(card_id)
+            if due_role:
+                # An Agent card's own timer: a scheduled run of that role, with no card ids.
+                for one in (due_role if isinstance(due_role, list) else [due_role]):
+                    _mark_due(route.name, one)
+                    route.runner(one).poke("Empirical timer (item.due)")
+                return
+            # A due time on a WORK card (an ad's step-down day): the role mapped to its type, started
+            # with that card's id like a column move.
+            due_role = route.due_roles.get(f"{itype}:due") if itype else None
             if not due_role:
                 log(f"[{route.name}] item.due for {item.get('id', '?')}: not in due_roles, ignored"); return
             for one in (due_role if isinstance(due_role, list) else [due_role]):
-                _mark_due(route.name, one)
-                route.runner(one).poke("Empirical timer (item.due)")
+                route.runner(one).poke(f"item.due on a {itype} card", ids=[card_id])
             return
         role = route.roles.get(f"{itype}:{status}") or route.roles.get(status) or route.default_role
         if role:

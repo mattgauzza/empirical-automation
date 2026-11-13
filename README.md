@@ -1,6 +1,6 @@
 # empirical-automation
 
-Run a project as a board. Each card moving into a column starts **one small Claude Code agent** on
+Run a project as a board. Each card moving into a column starts **one small agent** (Claude Code or Codex) on
 your PC, which does that column's job and moves the card on. You approve with the buttons on an open
 card (Approve, Send back, Reject), or by dragging it.
 
@@ -8,8 +8,9 @@ card (Approve, Send back, Reject), or by dragging it.
   Agent cards hold every agent's playbook; Task cards are how agents ask for you.
 - **The receiver** (`receiver/`) is one small Python program on your PC, reached through a tunnel.
   It verifies Empirical's signed webhook and starts the agent mapped to the card's new column.
-- **The agents** are Claude Code background sessions: one role each, a fixed allow-list of commands,
-  a chosen model. They read and write the board with the `empirical` command line tool.
+- **The agents** are Claude Code background sessions (one role each, a fixed allow-list of commands,
+  a chosen model) or Codex runs ([codex.md](docs/codex.md)). They read and write the board with the
+  `empirical` command line tool.
 - **The project folder** holds the tools the agents run, their outputs, secrets and lock files.
 
 ```
@@ -45,8 +46,10 @@ all written against it.
 | 2. The rules card and the role playbooks, with templates | [playbooks.md](docs/playbooks.md) |
 | 3. Wire the receiver: route, webhook, locks, logs | [receiver-config.md](docs/receiver-config.md) |
 | 3b. The allow-list and which model runs which role | [permissions-and-models.md](docs/permissions-and-models.md) |
+| 3c. Running the agents with Codex instead | [codex.md](docs/codex.md) |
 | 4. Agents on a schedule: timers on Agent cards, with a local backup | [timers.md](docs/timers.md) |
 | 5. Publishing: API tools with an account guard; browser-only steps | [publishing.md](docs/publishing.md) |
+| 5b. Paid generation: spend caps, authorization and a ledger | [spending.md](docs/spending.md) |
 | Install, and the bring-up checklist | [install.md](docs/install.md) |
 | When it doesn't work, and lessons learned | [troubleshooting.md](docs/troubleshooting.md) |
 | Example prompts | [BOOTSTRAP.md](BOOTSTRAP.md) |
@@ -58,7 +61,7 @@ for your project and waits for your yes before creating anything.
 ## Needs
 
 - Windows for the start-up scripts (`receiver.py` itself is plain Python 3.9+, no packages)
-- Claude Code, signed in
+- Claude Code or Codex, signed in
 - An Empirical account on a plan with webhooks, timers and attachments, and the `empirical` CLI
 - A public https address for the receiver (the docs use a Cloudflare tunnel)
 - Whatever your own tools need (the sample: ffmpeg; Google API packages for uploads)
@@ -76,7 +79,9 @@ python tools/make_post.py posts/salt-your-pasta-water.json
 ## Safety, in short
 
 - An event's contents never reach an agent: only a fixed prompt and validated card ids.
-- Agents can run only what the allow-list names. Deleting is not on it.
+- Under Claude Code, agents can run only what the allow-list names, and deleting is not on it. Under
+  Codex there is no such list: the sandbox and your tools' own checks are the hard stops ([codex.md](docs/codex.md)).
+- Paid generation needs the person's move, a spend cap and an authorization the tool checks.
 - Publish tools schedule, never publish now, and refuse any account but the project's own.
 - Signing secrets and tokens live in gitignored files and are never shown in chat.
 

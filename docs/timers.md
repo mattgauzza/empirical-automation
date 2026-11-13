@@ -60,6 +60,33 @@ empirical webhook test <webhook id> --event item.due --item <custodian card id>
 `receiver.log` shows `event item.due` and `[recipe-shorts/custodian] run in 60s (Empirical timer (item.due))`.
 To run one right now without waiting, use a poke file ([receiver-config.md](receiver-config.md)).
 
+## Due times on work cards
+
+A timer doesn't have to live on an Agent card. Any card whose type has due dates can wake a role at
+a date that belongs to the work itself: an ad's step-down day, a trial's end, a follow-up on a lead.
+
+1. Turn due times on for that type: `type.update` with `hasDueDate: true`, and `dueFiresIn` listing
+   only the columns where the date means something (a running ad, not a finished one).
+2. The role that owns the work sets the card's due time when it starts it ("set the due time to day
+   8, 08:30"), with `dueEmail: false` so it is a timer, not a reminder.
+3. In the route's `due_roles`, map the type (not a card id) to the role:
+
+   ```json
+   "due_roles": { "<custodian card id>": "custodian", "ad_run:due": "monitor" }
+   ```
+
+   An Agent card's id still wins; any other card's due time goes to the role for its type, and that
+   card's id is in the prompt. Test it with
+   `empirical webhook test <webhook id> --event item.due --item <an ad_run card id>`: `receiver.log`
+   shows `[<route>/monitor] run in 60s (item.due on a ad_run card)`. Without this entry the receiver
+   logs `not in due_roles, ignored`, and the only way to act on a work card's date is a daily run
+   that checks every card.
+4. The playbook gets a section for it: "Started by a due time on an <Type> card: <what to do>", and
+   the card id comes in the prompt like any other trigger.
+
+A card that leaves the listed columns stops firing, so moving an ad to Off ends its schedule with no
+cleanup.
+
 ## Notes
 
 - A timer run gets no card ids; its prompt says "none given, check the whole board". Timed playbooks

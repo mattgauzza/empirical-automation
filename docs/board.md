@@ -75,7 +75,11 @@ A `type.add` argument file (the sample's are in `examples/recipe-shorts/board/sh
 ```
 
 - Statuses are in board order; at least one must be `done: true`.
-- Field kinds: text, longText, number, date, select, multiSelect, person, link, url.
+- Field kinds: text, longText, number, date, select, multiSelect, person, link, url. A `link` field
+  points at a card of another type (`"targetTypeKey": "lead_magnet"`): use it whenever one card is
+  about another (a job and its deliverable, an ad and its post), instead of pasting ids into notes.
+- A type that spends money gets a `spend_cap` number and a `spent` number ([spending.md](spending.md)).
+- Many parts making one deliverable? A job type and a director role ([playbooks.md](playbooks.md)).
 - **Keys are made from the labels once and never change** ("Built (In Review)" → `built_in_review`).
   Read the real keys from `shape.show`; never guess them. Renaming a label later keeps the key.
 - `type.update` previews first and returns a confirm code; run it again with `--confirm <code>`.
