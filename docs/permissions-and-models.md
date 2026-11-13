@@ -13,6 +13,7 @@ short as the playbooks allow.
 | --- | --- |
 | `Bash(empirical command run item.list:*)`, `item.create`, `item.update`, `item.move`, `shape.show` | Read and write cards. Each board action is its own entry |
 | `Bash(empirical memory get:*)`, `Bash(empirical memory note:*)` | Read one card with its notes; add a note |
+| `Bash(empirical memory query:*)`, `Bash(empirical memory record:*)` | Search lessons; record one ([playbooks.md](playbooks.md), "Lessons in memory") |
 | `Bash(empirical webhook list:*)`, `Bash(empirical webhook deliveries:*)` | Check the webhook (the custodian) |
 | `Read`, `Edit`, `Write`, `Glob`, `Grep` | Work with files in the project folder |
 | `Bash(python tools/:*)` | Run any command that **starts with** `python tools/` |

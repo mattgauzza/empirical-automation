@@ -31,11 +31,13 @@ prompt: pass `--workspace-id <ws>` on EVERY one. Arguments go in a JSON file you
 | Move a card | `empirical command run item.move --workspace-id <ws> --args-file <f>` | `{"id":"<card id>","status":"built_in_review"}` |
 | Add a note | `empirical memory note --memory-id <card id> --workspace-id <ws> --text "<one line>"` | - |
 | Attach a file | `empirical memory attachment add --memory-id <card id> --workspace-id <ws> --file <path> --author-type agent` | - |
+| Search lessons | `empirical memory query --match "<the step>" --tags scar-tissue --workspace-id <ws>` | - |
+| Record a lesson | `empirical memory record --category workflow --tags scar-tissue,recipe-shorts --author-type agent --workspace-id <ws> --summary-file <f>` | the lesson, in Markdown |
 
 - Every reply names the workspace (`workspaceName` or `workspaceId`). Not Recipe Shorts: stop.
 - `item.update` merges `fields`: send only the ones you change.
-- Note text: plain words on one line. No double quotes, backticks or `$` (the shell eats them).
-  Anything longer or with code in it: Write it to a file and attach the file.
+- Note text: one line, no double quotes, backticks or `$` (the shell eats them). Inline Markdown is
+  fine. Anything longer: put it in a field, or Write a `.md` file and attach it.
 
 ## Columns
 
@@ -96,9 +98,26 @@ Release rhythm: a Short on Tuesday, Thursday and Saturday; a post on Monday and 
 7. **Record it on the card, then hand off** by moving the card forward. Never move a card backward,
    except the reviewer to Needs Fixes.
 
-## Notes
-One note per step, starting `<role>:`, with the facts (times, lengths, file names, the YouTube link and
-schedule). Problems get their own note with what you tried.
+## Writing on the board
+Everything you write is Markdown: card summaries, fields, notes, Task cards, attached reports, lessons.
+The owner reads it on a phone.
+- A card summary: a short plain title line, a blank line, then the body.
+- One note per step: `<role>: <what happened>` with the facts (times, lengths, file names, the YouTube
+  link and schedule). Problems get their own note with what you tried.
+- Fix lists and reviews: a numbered list in the card's `review` field or an attached `.md` file, and a
+  one-line note pointing at it.
+- **Bold** only for money, a blocker or a deadline. Paths and ids in backticks. Full `https://` links.
+  A bare card id becomes a link to that card.
+- No tables, code fences, nested lists or HTML: the board shows them as plain text.
+- When you leave a card for the owner, end with `**Your move:** ...`: which button to press (or
+  column to drag to) and what each choice does.
+
+## Lessons
+- Before publishing, and before any step that failed before, search lessons (table above) and follow
+  what they say.
+- After a failure you understand, record ONE lesson: what happened, why, what to do instead. Write
+  it to `agents/args/<role>-lesson.md` first.
+- Lessons go in this board's workspace only. Never write to any other workspace.
 
 ## What the owner needs to decide
 The owner decides from the card alone, often on a phone, without opening the project folder. Before a

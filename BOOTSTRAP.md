@@ -46,7 +46,8 @@ Work in this order and stop where it says stop:
    A publish tool has an account guard, schedules only, and refuses duplicates. Run each one and show
    me the output.
 5. Write agents/rules.md and one playbook per role from the templates in docs/playbooks.md, including
-   the exact empirical commands table and the "what the owner needs to decide" section. Create one
+   the exact empirical commands table, the "what the owner needs to decide" section, "Writing on the
+   board" (everything in Markdown) and "Lessons". Write the playbooks themselves in Markdown. Create one
    Agent card per file with the playbook in its playbook field.
 6. Add the route to the receiver's config.json: path, project_dir, the fixed prompt, roles (from the
    real keys), debounce, lock_dir, models, alerts, and the shortest allow-list the playbooks need,
