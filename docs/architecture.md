@@ -1,7 +1,7 @@
 # Architecture
 
 A project runs as a board. A card moving into a column starts ONE small Claude Code agent on your PC,
-which does that column's job and moves the card on. A person approves by dragging cards.
+which does that column's job and moves the card on. A person approves with a card's buttons, or by dragging it.
 
 ```
 Empirical workspace (the board)
@@ -42,7 +42,8 @@ does the job with  python tools/<name>.py ...,  writes notes and attachments on 
   worked on twice and a stuck card points at one playbook.
 - **Playbooks live on the board.** You can read and edit an agent's instructions where you watch it
   work, pause it by dragging its card to Paused, and see its `last_run`.
-- **A person approves at a few points** by dragging: idea → queued, and anything in "Waiting on You".
+- **A person approves at a few points** with the buttons on the open card, or by dragging: idea →
+  queued, built work → approved, and anything in "Waiting on You".
   Agents never move a card backward (except a reviewer sending work back).
 - **Agents can only run what the allow-list starts with.** `--permission-mode dontAsk` plus
   `--allowedTools`: anything else is refused, not asked about.

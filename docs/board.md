@@ -13,8 +13,9 @@ Answer these, with the person who will approve the cards, and write the answers 
    have their own stages.
 2. **What are the stages?** Each column is either *owned by one agent* (it does work there), *owned by
    the person* (they decide there), or *a resting place* (done, rejected).
-3. **Where does the person approve?** Usually: ideas → queued, and a "Waiting on You" column for
-   anything an agent can't do.
+3. **Where does the person approve, and with which buttons?** Usually: ideas → queued, built work →
+   approved, and a "Waiting on You" column for anything an agent can't do. For each column the person
+   owns, name its buttons: the main move, and the ways back (Send back, Reject) that ask for a reason.
 4. **What does each agent need to hand the next?** Those are the fields (a folder, a file, a URL, a date).
 5. **What runs on a clock?** A daily health check, a weekly idea run, a go-live check.
 6. **How does "no" travel?** A Needs Fixes column (who may send work there, who fixes it, when the
@@ -78,7 +79,45 @@ A `type.add` argument file (the sample's are in `examples/recipe-shorts/board/sh
 - **Keys are made from the labels once and never change** ("Built (In Review)" → `built_in_review`).
   Read the real keys from `shape.show`; never guess them. Renaming a label later keeps the key.
 - `type.update` previews first and returns a confirm code; run it again with `--confirm <code>`.
-- Later changes: `status.add` (`after` / `before` to place it), `field.add`, `status.rename`.
+- Later changes: `status.add` (`after` / `before` to place it), `field.add`, `status.rename`,
+  `status.actions` (below).
+
+## Buttons for the columns you own
+
+An open card shows a **Next steps** bar under its title: the moves that make sense from its column.
+Set them for every column the person owns, so approving is one press on a phone instead of finding the
+right column in a list:
+
+```
+empirical command run status.actions --workspace-id ws_team_... --args-file buttons-recipe-idea.json
+```
+
+```json
+{
+  "typeKey": "recipe", "key": "idea",
+  "actions": [
+    { "label": "Queue it", "to": "queued" },
+    { "label": "Reject", "to": "rejected", "note": "required" }
+  ]
+}
+```
+
+- The first button is the main one (shown on the right, filled). At most four per column.
+- `note`: `required` makes the button ask for a reason, `optional` offers a box, `none` (the default)
+  moves at once. Use `required` for every way back: the reason is what the builder fixes and what the
+  ideas agent learns from ([playbooks.md](playbooks.md)).
+- The note is saved on the card **before** the card moves, so the agent the move starts always finds
+  it as the newest note. Nothing in the playbooks changes: a button press is a note plus an
+  `item.move`, and fires the same webhook as a drag.
+- A column is in one of three states. **Buttons**: the list you set (it replaces the old one).
+  **No buttons**: `"actions": []`, for every column an agent works, so a person can't press a move that
+  skips the agent (the guess on a builder's Needs Fixes column is "Move to Approved", past the review).
+  **Guess**: nothing set, or `"guess": true` to go back to it; the board offers the next column, then
+  the first finished one. Decide every column: the guess is right less often than it looks.
+- Don't give a person a button that does an agent's job. Where an agent approves (a reviewer), the
+  person's buttons are the ways back (Send back, Reject), not Approve.
+- When a shape is created whole (the `set_workspace_shape` tool, or the setup interview), each status
+  can carry its `actions` there instead; `to` may then name the target column by its label.
 
 ## Cards
 

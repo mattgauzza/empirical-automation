@@ -1,7 +1,8 @@
 # empirical-automation
 
 Run a project as a board. Each card moving into a column starts **one small Claude Code agent** on
-your PC, which does that column's job and moves the card on. You approve by dragging cards.
+your PC, which does that column's job and moves the card on. You approve with the buttons on an open
+card (Approve, Send back, Reject), or by dragging it.
 
 - **The board** is an [Empirical](https://empirical.gauzza.com) workspace. Cards are the work items;
   Agent cards hold every agent's playbook; Task cards are how agents ask for you.

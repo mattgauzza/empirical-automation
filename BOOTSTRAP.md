@@ -26,10 +26,13 @@ Work in this order and stop where it says stop:
    columns with the one owner of each (an agent role, me, or nobody), the fields each agent hands the
    next, the timers, the release rhythm, the two rejection loops (how work is sent back and fixed, and
    how my rejections and their reasons reach the ideas agent), and for every column I own, what a card must carry so I can
-   decide from the card alone (attachments, links, notes). Show it as the column table from
+   decide from the card alone (attachments, links, notes) and the buttons I press there (the main
+   move first; Send back and Reject ask for a reason). Columns an agent owns get no buttons. Show it as the column table from
    docs/board.md plus a list of agent roles with a one-line job each. Ask me what you can't know.
    Wait for my yes. Everything after this is written against the agreed shape.
 2. Create the workspace, types, statuses and fields. Read the real keys back with shape.show.
+   Set the agreed buttons with status.actions on every column ([] on the ones an agent owns), then
+   show them with shape.show.
    Bind this folder: empirical workspace use <workspace id> --project.
 3. Scaffold the folder: CLAUDE.md, tools/, agents/, agents/.locks/, agents/args/list-agents.json,
    secrets/README.md, .gitignore (secrets/ never committed).

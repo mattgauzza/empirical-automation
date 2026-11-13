@@ -109,8 +109,9 @@ A pipeline needs two ways for "no" to travel backward, and both must end.
 **Sent back (the work is wrong, fix it).** A Needs Fixes column mapped to the builder role.
 
 - The reviewer sends work there with numbered findings: what is wrong, what right looks like.
-- The person can send work there too, from any column, with a note. Tell the builder how to find the
-  fix list: the newest note since its own last "built" note, the person's outranking the reviewer's.
+- The person can send work there too, from any column, with a note: the Send back button asks for it
+  and saves it before the card moves ([board.md](board.md)). Tell the builder how to find the fix list:
+  the newest note since its own last "built" note, the person's outranking the reviewer's.
 - The builder fixes exactly those points, says which, and returns the card to review. It reviews
   again from the top: a fix can break something else.
 - Cap it. The same problem back a third time goes to "Waiting on You" with the history; the
@@ -118,7 +119,8 @@ A pipeline needs two ways for "no" to travel backward, and both must end.
 
 **Rejected (don't make this, and learn from it).** A Rejected column nobody works on.
 
-- The person drags a card there and leaves one line on why. Works for ideas and for built work.
+- The person presses Reject, which asks for one line on why, or drags the card there and leaves that
+  line as a note. Works for ideas and for built work.
 - The ideas agent, at the start of every run, reads the new rejections' notes and writes them into a
   taste file in the project (the sample's `IDEAS-TASTE.md`): a dated history of rejected and accepted
   cards, and a short list of rules they add up to. Every new idea must pass those rules.

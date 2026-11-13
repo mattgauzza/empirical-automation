@@ -41,7 +41,7 @@ prompt: pass `--workspace-id <ws>` on EVERY one. Arguments go in a JSON file you
 
 | Card / column (status key) | Owner | Next |
 |---|---|---|
-| Recipe / Post Idea `idea` | **ideas** creates; **the owner approves** (drags to Queued) or rejects (Rejected) | Queued / Rejected |
+| Recipe / Post Idea `idea` | **ideas** creates; **the owner approves** (Queue it, or drags to Queued) or rejects (Reject, with a reason) | Queued / Rejected |
 | Recipe Queued `queued` | **builder** | Built (In Review) |
 | Post Queued `queued` | **post-builder** | Built (In Review) |
 | Recipe / Post Built (In Review) `built_in_review` | **reviewer** | Approved, or Needs Fixes |

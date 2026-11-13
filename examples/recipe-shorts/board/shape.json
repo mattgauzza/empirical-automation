@@ -1,5 +1,5 @@
 {
-  "_about": "The board shape for the Recipe Shorts SAMPLE only. Your project's types, columns and fields come from your own work and are agreed before anything is built (docs/board.md). Each item type is its own board (its own columns), so one workspace holds the Recipe board and the Post board side by side. Each entry under 'types' is the --args object for one `type.add` command; 'after' lists follow-up commands.",
+  "_about": "The board shape for the Recipe Shorts SAMPLE only. Your project's types, columns and fields come from your own work and are agreed before anything is built (docs/board.md). Each item type is its own board (its own columns), so one workspace holds the Recipe board and the Post board side by side. Each entry under 'types' is the --args object for one `type.add` command; 'after' lists follow-up commands, including the buttons on the columns the owner presses (status.actions).",
   "workspace": {
     "name": "Recipe Shorts",
     "description": "Pipeline for a recipe channel: Shorts (the Recipe board) and kitchen-tip community posts (the Post board), built, reviewed and scheduled by agents."
@@ -86,7 +86,21 @@
       "command": "type.update",
       "args": { "type": "agent", "hasDueDate": true, "dueFiresIn": ["active"] },
       "why": "A paused or retired agent's timer must not fire. This command previews first and returns a confirm code."
-    }
+    },
+    {"command": "status.actions", "args": {"typeKey": "recipe", "key": "idea", "actions": [{"label": "Queue it", "to": "queued"}, {"label": "Reject", "to": "rejected", "note": "required"}]}, "why": "The owner's approval. Reject asks for the reason the ideas agent learns from."},
+    {"command": "status.actions", "args": {"typeKey": "recipe", "key": "queued", "actions": []}, "why": "The builder's column. [] means no buttons: the guessed one would move work nobody built."},
+    {"command": "status.actions", "args": {"typeKey": "recipe", "key": "built_in_review", "actions": [{"label": "Send back", "to": "needs_fixes", "note": "required"}, {"label": "Reject", "to": "rejected", "note": "required"}]}, "why": "The reviewer approves; the owner can still overrule it, always with a reason. No Approve button, so a press cannot skip the review."},
+    {"command": "status.actions", "args": {"typeKey": "recipe", "key": "needs_fixes", "actions": []}, "why": "The builder's column. Without this the guess would offer Move to Approved, skipping review."},
+    {"command": "status.actions", "args": {"typeKey": "recipe", "key": "approved", "actions": [{"label": "Send back", "to": "needs_fixes", "note": "required"}]}, "why": "Waiting for the publisher; the owner can still pull it back with the fix list."},
+    {"command": "status.actions", "args": {"typeKey": "recipe", "key": "waiting_on_you", "actions": [{"label": "Done, back to Approved", "to": "approved", "note": "optional"}]}, "why": "After the owner does what the agent could not (a sign-in), the card goes back to the publisher. The guess would have been Move to Scheduled."},
+    {"command": "status.actions", "args": {"typeKey": "recipe", "key": "scheduled", "actions": []}, "why": "The go-live check moves it to Published; nothing for a person to press."},
+    {"command": "status.actions", "args": {"typeKey": "post", "key": "idea", "actions": [{"label": "Queue it", "to": "queued"}, {"label": "Reject", "to": "rejected", "note": "required"}]}, "why": "The owner's approval. Reject asks for the reason the ideas agent learns from."},
+    {"command": "status.actions", "args": {"typeKey": "post", "key": "queued", "actions": []}, "why": "The builder's column. [] means no buttons: the guessed one would move work nobody built."},
+    {"command": "status.actions", "args": {"typeKey": "post", "key": "built_in_review", "actions": [{"label": "Send back", "to": "needs_fixes", "note": "required"}, {"label": "Reject", "to": "rejected", "note": "required"}]}, "why": "The reviewer approves; the owner can still overrule it, always with a reason. No Approve button, so a press cannot skip the review."},
+    {"command": "status.actions", "args": {"typeKey": "post", "key": "needs_fixes", "actions": []}, "why": "The builder's column. Without this the guess would offer Move to Approved, skipping review."},
+    {"command": "status.actions", "args": {"typeKey": "post", "key": "approved", "actions": [{"label": "Send back", "to": "needs_fixes", "note": "required"}]}, "why": "Waiting for the publisher; the owner can still pull it back with the fix list."},
+    {"command": "status.actions", "args": {"typeKey": "post", "key": "waiting_on_you", "actions": [{"label": "Done, back to Approved", "to": "approved", "note": "optional"}]}, "why": "After the owner does what the agent could not (a sign-in), the card goes back to the publisher. The guess would have been Move to Scheduled."},
+    {"command": "status.actions", "args": {"typeKey": "post", "key": "scheduled", "actions": []}, "why": "The go-live check moves it to Published; nothing for a person to press."}
   ],
   "status_keys": {
     "_about": "Keys are made from the labels once and never change. Check them with shape.show; the receiver's `roles` map uses <type key>:<status key>.",
